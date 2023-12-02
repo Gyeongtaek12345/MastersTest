@@ -19,18 +19,10 @@ public class CardMatchingGame {
         System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
         game.drawField();
-        boolean eCheck = true;
         while(!game.winCondition()){
-            while(eCheck == true){
-                try{
-                    game.startGame();
-                    System.out.println("________________________________________________________________________");
-                    game.reveal();
-                    eCheck = false;
-                }catch (Exception e){
-                    System.out.println("!두개의 좌표를 올바르게 입력해주세요! (범위 0,0 ~ 2,5)");
-                }
-            }
+            game.startGame();
+            System.out.println("________________________________________________________________________");
+            game.reveal();
             game.numTry++;                                       //시도 횟수 증가
             game.cardCount();
             System.out.println("________________________________________________________________________");
@@ -40,12 +32,11 @@ public class CardMatchingGame {
 
 
 
-
     }
     //게임이 진행됨에있어 필요한 메세지의 출력과 게임에 사용될 2개의 좌표를 유저에게서 받아온다.
     public void startGame(){
         System.out.println("시도 횟수: "+numTry+" 남은 카드 수: "+numX);
-        System.out.println("카드 위치에 해당하는 죄표를 2개 입력해주세요 예시: 1,2");
+        System.out.println("카드 위치에 해당하는 죄표를 2개 입력해주세요 eg.1,2");
         System.out.print("좌표1: ");
         Scanner coordinate = new Scanner(System.in);
         String coordString = coordinate.nextLine();
@@ -110,7 +101,7 @@ public class CardMatchingGame {
             System.out.println();
         }
         System.out.println("________________________________________________________________________");
-        if (pos1 == ' ' || pos2 == ' '){                        //숫자가 비어있는 곳을 유저가 선택할경우 발생할수있는 오류를 수정
+        if (pos1 == ' ' || pos2 == ' '){
             for (int i=0; i<col; i++){
                 for (int j=0; j<row; j++){
                     System.out.print(xField[i][j]+" ");
