@@ -5,6 +5,7 @@ import stage2.Application;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class CardMatchingGame {
     public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
@@ -13,13 +14,33 @@ public class CardMatchingGame {
     int[][] cardField = new int[col][row];
     char[][] xField = new char[col][row];
     char[][] temp = new char[col][row];
+    int x,x2,y,y2,numTry;                                        //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수
+    int numX = 18;                                               //필드에 남은 카드의 수
     public static void main(String[] args) {
-        CardMatchingGame game = new CardMatchingGame();         //card game에 대한 인스턴스
-//        System.out.println(Arrays.toString(game.cardDeck));     //섞기전
+        CardMatchingGame game = new CardMatchingGame();          //card game에 대한 인스턴스
+        System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
-//        System.out.println(Arrays.toString(game.cardDeck));     //섞은후
         game.drawField();
+        game.startGame();
 
+
+    }
+    //게임이 진행됨에있어 필요한 메세지의 출력과 게임에 사용될 2개의 좌표를 유저에게서 받아온다.
+    public void startGame(){
+        System.out.println("시도 횟수: "+numTry+" 남은 카드 수: "+numX);
+        System.out.println("카드 위치에 해당하는 죄표를 2개 입력해주세요 eg.1,2");
+        System.out.print("좌표1: ");
+        Scanner coordinate = new Scanner(System.in);
+        String coordString = coordinate.nextLine();
+        String[] data = coordString.split(",");
+        y=Integer.parseInt(data[0]);
+        x=Integer.parseInt(data[1]);
+        System.out.print("좌표2: ");
+        Scanner coordinate2 = new Scanner(System.in);
+        String coordString2 = coordinate2.nextLine();
+        String[] data2 = coordString2.split(",");
+        y2=Integer.parseInt(data2[0]);
+        x2=Integer.parseInt(data2[1]);
     }
     //Collection을 이용하여 cardDeck array를 list로 변환후에 shuffle을 사용해서 섞어준뒤 array로 변환해준다.
     public void shuffle(){
