@@ -1,7 +1,5 @@
 package stage1;
 
-import stage2.Application;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +24,11 @@ public class CardMatchingGame {
             System.out.println("________________________________________________________________________");
             game.reveal();
             game.numTry++;                                       //시도 횟수 증가
+            game.cardCount();
             System.out.println("________________________________________________________________________");
         }
+        System.out.println("축하드립니다 게임을 클리어 했습니다!!!");
+        System.out.println("시도 횟수: "+game.numTry+" 남은 카드 수: "+game.numX);
 
 
 
@@ -142,5 +143,16 @@ public class CardMatchingGame {
             }
         }
         return count[1] < 2 && count[2] < 2 && count[3] < 2 && count[4] < 2 && count[5] < 2 && count[6] < 2 && count[7] < 2 && count[8] < 2;
+    }
+    //for 루프문을 이용하여 몇장의 카드가 필드에 남았는지 확인한다
+    public void cardCount(){
+        numX = 0;
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                if (xField[i][j] == 'x'){
+                    numX++;
+                }
+            }
+        }
     }
 }
