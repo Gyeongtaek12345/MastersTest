@@ -75,12 +75,12 @@ public class CardMatchingGame {
                 temp[i][j]='x';
             }
         }
-        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
-            for (int j=0; j<row; j++){
-                System.out.print(cardField[i][j]+" ");
-            }
-            System.out.println();
-        }
+//        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
+//            for (int j=0; j<row; j++){
+//                System.out.print(cardField[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
                 System.out.print(xField[i][j]+" ");
