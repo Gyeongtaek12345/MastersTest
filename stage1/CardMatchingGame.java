@@ -101,7 +101,23 @@ public class CardMatchingGame {
             System.out.println();
         }
         System.out.println("________________________________________________________________________");
-        if (pos1 == pos2){
+        if (pos1 == ' ' || pos2 == ' '){
+            for (int i=0; i<col; i++){
+                for (int j=0; j<row; j++){
+                    System.out.print(xField[i][j]+" ");
+                }
+                System.out.println();
+            }
+            temp[y][x] = 'x';
+            temp[y2][x2] = 'x';
+            if (pos1 == ' '){
+                temp[y][x] = ' ';
+            }
+            if (pos2 == ' '){
+                temp[y2][x2] = ' ';
+            }
+        }
+        else if (pos1 == pos2){
             remove();
         }
         else {
