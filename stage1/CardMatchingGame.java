@@ -33,7 +33,6 @@ public class CardMatchingGame {
                     System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");
                 }
             }
-            game.numTry++;                                       //시도 횟수 증가
             game.cardCount();
             System.out.println("________________________________________________________________________");
         }
@@ -100,6 +99,7 @@ public class CardMatchingGame {
     }
     //유저에게 받은 2개의 좌표의 값을 서로 비교하고 두값이 같을 경우 두카드를 제거하는 Remove()를 실행한다 그러나 두값이 다를경우 원래 상태로 돌아간다.
     public void reveal(){
+        numTry++;
         int pos1 = cardField[y][x];
         int pos2 = cardField[y2][x2];
         temp[y][x] = Character.forDigit(pos1,10);
