@@ -19,6 +19,7 @@ public class CardMatchingGame {
         System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
         game.drawField();
+        System.out.println("________________________________________________________________________");
         boolean eCheck = true;
         while(!game.winCondition()){
             while(eCheck = true){
