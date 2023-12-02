@@ -21,11 +21,12 @@ public class CardMatchingGame {
         game.drawField();
         boolean eCheck = true;
         while(!game.winCondition()){
-            while(eCheck == true){
+            while(eCheck = true){
                 try{
                     game.startGame();
                     System.out.println("________________________________________________________________________");
                     game.reveal();
+                    System.out.println("________________________________________________________________________");
                     eCheck = false;
                 }catch (Exception e){
                     System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");
