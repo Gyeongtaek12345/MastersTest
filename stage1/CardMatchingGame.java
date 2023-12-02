@@ -21,9 +21,14 @@ public class CardMatchingGame {
         System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
         game.drawField();
-        game.startGame();
-        game.reveal();
-        
+        while(!game.winCondition()){
+            game.startGame();
+            System.out.println("________________________________________________________________________");
+            game.reveal();
+            game.numTry++;                                       //시도 횟수 증가
+            System.out.println("________________________________________________________________________");
+        }
+
 
 
     }
@@ -123,5 +128,19 @@ public class CardMatchingGame {
             }
             System.out.println();
         }
+    }
+    //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숙자가 2개 아래인 경우 조건문의 참값을 반환한다
+    public boolean winCondition(){
+        int[]count = new int[9];
+        for (int z=1; z<=8; z++) {
+            for (int i=0; i<col; i++){
+                for (int j=0; j<row; j++){
+                    if (cardField[i][j]==z){
+                        count[z]++;
+                    }
+                }
+            }
+        }
+        return count[1] < 2 && count[2] < 2 && count[3] < 2 && count[4] < 2 && count[5] < 2 && count[6] < 2 && count[7] < 2 && count[8] < 2;
     }
 }
