@@ -22,6 +22,8 @@ public class CardMatchingGame {
         game.shuffle();
         game.drawField();
         game.startGame();
+        game.reveal();
+        
 
 
     }
@@ -73,6 +75,48 @@ public class CardMatchingGame {
             }
             System.out.println();
         }
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                System.out.print(xField[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    //유저에게 받은 2개의 좌표의 값을 서로 비교하고 두값이 같을 경우 두카드를 제거하는 Remove()를 실행한다 그러나 두값이 다를경우 원래 상태로 돌아간다.
+    public void reveal(){
+        int pos1 = cardField[y][x];
+        int pos2 = cardField[y2][x2];
+        temp[y][x] = Character.forDigit(pos1,10);
+        temp[y2][x2] = Character.forDigit(pos2,10);
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                System.out.print(temp[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("________________________________________________________________________");
+        if (pos1 == pos2){
+            remove();
+        }
+        else {
+            for (int i=0; i<col; i++){
+                for (int j=0; j<row; j++){
+                    System.out.print(xField[i][j]+" ");
+                }
+                System.out.println();
+            }
+            temp[y][x] = 'x';
+            temp[y2][x2] = 'x';
+        }
+    }
+    //좌표 값에 있는 array 값들을 제거하고 필드에 재출력한다.
+    public void remove(){
+        xField[y][x] = ' ';
+        xField[y2][x2] = ' ';
+        temp[y][x] = ' ';
+        temp[y2][x2] = ' ';
+        cardField[y][x] = ' ';
+        cardField[y2][x2] = ' ';
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
                 System.out.print(xField[i][j]+" ");
