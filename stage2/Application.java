@@ -12,10 +12,10 @@ public class Application {
     int[][] cardField = new int[col][row];
     char[][] xField = new char[col][row];
     char[][] temp = new char[col][row];
-    int x,x2,y,y2,numTry;                                        //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수
-    int numX = 18;                                               //필드에 남은 카드의 수
+    int x,x2,y,y2,numTry;                                        //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수     //필드에 남은 카드의 수
     public static void main(String[] args) {
         Application game = new Application();          //card game에 대한 인스턴스
+
         System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
         game.drawField();
@@ -28,14 +28,14 @@ public class Application {
             System.out.println("________________________________________________________________________");
         }
         System.out.println("축하드립니다 게임을 클리어 했습니다!!!");
-        System.out.println("시도 횟수: "+game.numTry+" 남은 카드 수: "+game.numX);
+        System.out.println("시도 횟수: " + game.numTry + " 남은 카드 수: " + game.cardCount());
 
 
 
     }
     //게임이 진행됨에있어 필요한 메세지의 출력과 게임에 사용될 2개의 좌표를 유저에게서 받아온다.
     public void startGame(){
-        System.out.println("시도 횟수: "+numTry+" 남은 카드 수: "+numX);
+        System.out.println("시도 횟수: "+numTry+" 남은 카드 수: " + cardCount());
         System.out.println("카드 위치에 해당하는 죄표를 2개 입력해주세요 eg.1,2");
         System.out.print("좌표1: ");
         Scanner coordinate = new Scanner(System.in);
@@ -81,12 +81,13 @@ public class Application {
 //            }
 //            System.out.println();
 //        }
-        for (int i=0; i<col; i++){
-            for (int j=0; j<row; j++){
-                System.out.print(xField[i][j]+" ");
-            }
-            System.out.println();
-        }
+//        for (int i=0; i<col; i++){
+//            for (int j=0; j<row; j++){
+//                System.out.print(xField[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
+        makeField(xField);
     }
     //유저에게 받은 2개의 좌표의 값을 서로 비교하고 두값이 같을 경우 두카드를 제거하는 Remove()를 실행한다 그러나 두값이 다를경우 원래 상태로 돌아간다.
     public void reveal(){
@@ -94,20 +95,10 @@ public class Application {
         int pos2 = cardField[y2][x2];
         temp[y][x] = Character.forDigit(pos1,10);
         temp[y2][x2] = Character.forDigit(pos2,10);
-        for (int i=0; i<col; i++){
-            for (int j=0; j<row; j++){
-                System.out.print(temp[i][j]+" ");
-            }
-            System.out.println();
-        }
+        makeField(temp);
         System.out.println("________________________________________________________________________");
         if (pos1 == ' ' || pos2 == ' '){
-            for (int i=0; i<col; i++){
-                for (int j=0; j<row; j++){
-                    System.out.print(xField[i][j]+" ");
-                }
-                System.out.println();
-            }
+            makeField(xField);
             temp[y][x] = 'x';
             temp[y2][x2] = 'x';
             if (pos1 == ' '){
@@ -121,12 +112,7 @@ public class Application {
             remove();
         }
         else {
-            for (int i=0; i<col; i++){
-                for (int j=0; j<row; j++){
-                    System.out.print(xField[i][j]+" ");
-                }
-                System.out.println();
-            }
+            makeField(xField);
             temp[y][x] = 'x';
             temp[y2][x2] = 'x';
         }
@@ -139,12 +125,7 @@ public class Application {
         temp[y2][x2] = ' ';
         cardField[y][x] = ' ';
         cardField[y2][x2] = ' ';
-        for (int i=0; i<col; i++){
-            for (int j=0; j<row; j++){
-                System.out.print(xField[i][j]+" ");
-            }
-            System.out.println();
-        }
+        makeField(xField);
     }
     //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숙자가 2개 아래인 경우 조건문의 참값을 반환한다
     public boolean winCondition(){
@@ -161,14 +142,24 @@ public class Application {
         return count[1] < 2 && count[2] < 2 && count[3] < 2 && count[4] < 2 && count[5] < 2 && count[6] < 2 && count[7] < 2 && count[8] < 2;
     }
     //for 루프문을 이용하여 몇장의 카드가 필드에 남았는지 확인한다
-    public void cardCount(){
-        numX = 0;
+    public int cardCount(){
+        int numX = 0;
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
                 if (xField[i][j] == 'x'){
                     numX++;
                 }
             }
+        }
+        return numX;
+    }
+    //코드에 반복되는 코드를 줄이기위에 2D array를 콘솔에 적어주는 메서드
+    public void makeField(char[][] field){
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                System.out.print(field[i][j]+" ");
+            }
+            System.out.println();
         }
     }
 }
