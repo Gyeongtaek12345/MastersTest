@@ -12,17 +12,28 @@ public class Application {
     int[][] cardField = new int[col][row];
     char[][] xField = new char[col][row];
     char[][] temp = new char[col][row];
-    int x,x2,y,y2,numTry;                                        //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수     //필드에 남은 카드의 수
+    int x,x2,y,y2,numTry,numTry2,gotScore,player1Score,player2Score;                    //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수     //필드에 남은 카드의 수
+    String player1Name, player2Name;
+    boolean turn,turnOver;
     public static void main(String[] args) {
         Application game = new Application();          //card game에 대한 인스턴스
 
         System.out.println("!!!카드 맞추기 게임!!!");              //title
         game.shuffle();
         game.drawField();
+        boolean eCheck = true;
         while(!game.winCondition()){
-            game.startGame();
-            System.out.println("________________________________________________________________________");
-            game.reveal();
+            while(eCheck){
+                try{
+                    game.startGame();
+                    System.out.println("________________________________________________________________________");
+                    game.reveal();
+                    System.out.println("________________________________________________________________________");
+                    eCheck = false;
+                }catch (Exception e){
+                    System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");
+                }
+            }
             game.numTry++;                                       //시도 횟수 증가
             game.cardCount();
             System.out.println("________________________________________________________________________");
@@ -32,6 +43,15 @@ public class Application {
 
 
 
+    }
+    public void setUp(){
+        System.out.println("플레이어1의 이름을 입력하세요: ");
+        Scanner player1 = new Scanner(System.in);
+        player1Name = player1.nextLine();
+        System.out.println("플레이어2의 이름을 입력하세요: ");
+        Scanner player2 = new Scanner(System.in);
+        player2Name = player2.nextLine();
+        turn = true;                                            //플레이어1 턴 시작
     }
     //게임이 진행됨에있어 필요한 메세지의 출력과 게임에 사용될 2개의 좌표를 유저에게서 받아온다.
     public void startGame(){
@@ -78,12 +98,6 @@ public class Application {
 //        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
 //            for (int j=0; j<row; j++){
 //                System.out.print(cardField[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
-//        for (int i=0; i<col; i++){
-//            for (int j=0; j<row; j++){
-//                System.out.print(xField[i][j]+" ");
 //            }
 //            System.out.println();
 //        }
@@ -161,5 +175,29 @@ public class Application {
             }
             System.out.println();
         }
+    }
+    public void scoreCalculate(){
+        if (turn){
+            if (gotScore > 1){
+                for (int i=1;i<=gotScore;i++) {
+                    player1Score = player1Score*2;
+                }
+            }
+            else {
+                player1Score += 10;
+            }
+        }else{
+            if (gotScore > 1){
+                for (int i=1;i<=gotScore;i++) {
+                    player2Score = player2Score*2;
+                }
+            }
+            else {
+                player2Score += 10;
+            }
+        }
+    }
+    public void turnChanger(){
+        turn = !turn;
     }
 }
