@@ -1,6 +1,6 @@
 # Code Masters Test
-## [1단계] <카드 맞추기 게임 > 기본 로직 구현하기
-### 요구사항
+## #️⃣[1단계] <카드 맞추기 게임 > 기본 로직 구현하기#️⃣
+### 💡요구사항
 #### 준비
 - 카드 덱에는 1, 2, 3, 4, 5, 6, 7, 8 8장의 카드가 각 세 장씩 총 24장이 들어있다.
 - 게임을 시작하면 카드 덱의 카드를 랜덤하게 섞는다.
@@ -12,7 +12,7 @@
 4. (카드 제거) 만약 두 카드가 일치하면 해당 카드를 제거하고 카드가 뒤집힌 화면을 출력한다.
 5. (종료 조건) 모든 카드를 맞추거나 더 이상 남은 짝이 없을 경우 축하메시지를 출력하고 종료한다.
 6. (반복 하기) 게임이 끝나지 않았을 경우 1부터 반복한다.
-### 동작 예시
+### 🏃동작 예시
     !!!카드 맞추기 게임!!!
     x x x x x x 
     x x x x x x
@@ -35,11 +35,50 @@
     카드 위치에 해당하는 죄표를 2개 입력해주세요 예시: 1,2
     좌표1: 0,1
     좌표2: 2,0
-### 단계별 풀이 및 코드 설명
+### 🔎단계별 풀이 및 코드 설명
 #### 준비
-카드 덱에는 1부터 8까지의 카드가 3세트 들어가있다 그러므로
-array를 이용하여 미리 준비된 덱을 만들어준다.
-    
+- 카드 덱에는 1부터 8까지의 카드가 3세트 들어가있다 그러므로 array를 이용하여 미리 준비된 덱을 만들어준다.
+
+
+    public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
+- 덱을 섞어주기 위해 array를 list로 변환 후 Collection 의 shuffle 함수를 이용해준다.
+
+
+    public void shuffle(){
+        List<Integer> deckList = Arrays.asList(cardDeck);
+        Collections.shuffle(deckList);
+        deckList.toArray(cardDeck);
+    }
+- 섞어준 덱의 카드들을 2D array (cardField) 안에 3행 6열로 배치한다.
+
+
+    int count = 0;
+    for (int i=0; i<col; i++){
+        for (int j=0; j<row; j++){
+            cardField[i][j]=cardDeck[count];
+            count++;
+        }
+    }
+### 플레이
+1. *(초기 시작)* 뒤집힌 카드를 표시하는 x를 x가 들어있는 2D array (xField) 를 for 루프를 이용하여 3행 6열로 콘솔에 프린트한다.
+
+
+    for (int i=0; i<col; i++){
+        for (int j=0; j<row; j++){
+            System.out.print(xField[i][j]+" ");
+        }
+        System.out.println();
+    }
+2. *(입력 메뉴)* 변수 numTry 와 변수 numX 를 이용하여 시도 횟수와 남은 카드의 수를 가져오고 Scanner를 이용해서 유저한테서 좌표(y,x)을 받아서 splite을 이용해 나눠준다.
+
+
+    System.out.print("좌표1: ");
+    Scanner coordinate = new Scanner(System.in);
+    String coordString = coordinate.nextLine();
+    String[] data = coordString.split(",");
+    y=Integer.parseInt(data[0]);
+    x=Integer.parseInt(data[1]);
 ## 2단계
+    
 ## 3단계
 
