@@ -7,20 +7,22 @@ import java.util.Scanner;
 
 public class Application {
     public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
-    int row = 6;
-    int col = 3;
+    int row = 6,col = 3;
     int[][] cardField = new int[col][row];
     char[][] xField = new char[col][row];
     char[][] temp = new char[col][row];
-    int x,x2,y,y2,numTry,numTry2,gotScore,player1Score,player2Score;                    //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수     //필드에 남은 카드의 수
+    int x,x2,y,y2,numTry,numTry2,scoreRound,player1Score,player2Score;                    //플레이어가 선택한 좌표1,2  플레이어가 시도한횟수     //필드에 남은 카드의 수
     String player1Name, player2Name;
     boolean turn;
     public static void main(String[] args) {
         Application game = new Application();          //card game에 대한 인스턴스
         System.out.println("!!!카드 맞추기 게임!!!");              //title
+        System.out.println("________________________________________________________________________");
         game.setUp();
+        System.out.println("________________________________________________________________________");
         game.shuffle();
         game.drawField();
+        System.out.println("________________________________________________________________________");
         while(!game.winCondition()){
             while(true){
                 try{
@@ -90,10 +92,6 @@ public class Application {
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
                 xField[i][j]='x';
-            }
-        }
-        for (int i=0; i<col; i++){
-            for (int j=0; j<row; j++){
                 temp[i][j]='x';
             }
         }
@@ -156,7 +154,7 @@ public class Application {
         makeField(xField);
         scoreCalculate();
     }
-    //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숙자가 2개 아래인 경우 조건문의 참값을 반환한다
+    //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숫자가 2개 아래인 경우 조건문의 참값을 반환한다
     public boolean winCondition(){
         int[]count = new int[9];
         for (int z=1; z<=8; z++) {
@@ -186,16 +184,17 @@ public class Application {
     public void makeField(char[][] field){
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
-                System.out.print(field[i][j]+" ");
+                System.out.print("|"+field[i][j]+"|");
             }
             System.out.println();
         }
     }
+    //누구의 턴인지 체크후에 점수를 추가 부여한다. 계속해서 카드를 맞출경우 부여되는 점수가 2배가된다
     public void scoreCalculate(){
         int score = 10;
         if (turn){
-            if (gotScore >= 1){
-                for (int i = 0;i < gotScore;i++){
+            if (scoreRound >= 1){
+                for (int i = 0;i < scoreRound;i++){
                     score = score*2;
                 }
                 player1Score += score;
@@ -204,8 +203,8 @@ public class Application {
                 player1Score += 10;
             }
         }else {
-            if (gotScore >= 1){
-                for (int i = 0;i < gotScore;i++){
+            if (scoreRound >= 1){
+                for (int i = 0;i < scoreRound;i++){
                     score = score*2;
                 }
                 player2Score += score;
@@ -214,10 +213,10 @@ public class Application {
                 player2Score += 10;
             }
         }
-        gotScore++;
+        scoreRound++;
     }
     public void turnChanger(){
         turn = !turn;
-        gotScore = 0;
+        scoreRound = 0;
     }
 }
