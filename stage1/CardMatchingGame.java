@@ -152,7 +152,7 @@ public class CardMatchingGame {
             System.out.println();
         }
     }
-    //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숙자가 2개 아래인 경우 조건문의 참값을 반환한다
+    //for 루프문을 이용하여 각각의 숫자가 array에 얼마나 있는지 체크한 후 모든 숫자가 2개 아래인 경우 조건문의 참값을 반환한다
     public boolean winCondition(){
         int[]count = new int[9];
         for (int z=1; z<=8; z++) {
