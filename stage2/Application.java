@@ -16,7 +16,7 @@ public class Application {
     boolean turn;
     public static void main(String[] args) {
         Application game = new Application();          //card game에 대한 인스턴스
-        System.out.println("!!!카드 맞추기 게임!!!");              //title
+        System.out.println("!!!카드 맞추기 게임!!!");
         System.out.println("________________________________________________________________________");
         game.setUp();
         System.out.println("________________________________________________________________________");
@@ -31,14 +31,13 @@ public class Application {
                     game.reveal();
                     break;
                 }catch (Exception e){
-                    System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");
+                    System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");  //에러 메세지
                 }
             }
             game.cardCount();
             System.out.println("________________________________________________________________________");
         }
-        System.out.println("축하드립니다 게임을 클리어 했습니다!!!");
-        System.out.println("시도 횟수: " + game.numTry + " 남은 카드 수: " + game.cardCount());
+        game.finishGame();
 
 
 
@@ -73,6 +72,18 @@ public class Application {
         String[] data2 = coordString2.split(",");
         y2=Integer.parseInt(data2[0]);
         x2=Integer.parseInt(data2[1]);
+    }
+    //게임이 끝나고 승자와 두 플레이어의 점수를 표시해준다
+    public void finishGame(){
+        if (player1Score == player2Score){
+            System.out.println("무승부 플레이어간의 점수가 같습니다");
+        }else if(player1Score > player2Score){
+            System.out.println(player1Name + " 승리!!!");
+        }else{
+            System.out.println(player2Name + " 승리!!!");
+        }
+        System.out.println(player1Name + " 시도 횟수: "+ numTry + " 점수: " + player1Score);
+        System.out.println(player2Name + " 시도 횟수: "+ numTry2 + " 점수: " + player2Score);
     }
     //Collection을 이용하여 cardDeck array를 list로 변환후에 shuffle을 사용해서 섞어준뒤 array로 변환해준다.
     public void shuffle(){
@@ -184,7 +195,7 @@ public class Application {
     public void makeField(char[][] field){
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
-                System.out.print("|"+field[i][j]+"|");
+                System.out.print("["+field[i][j]+"]");
             }
             System.out.println();
         }
@@ -215,6 +226,7 @@ public class Application {
         }
         scoreRound++;
     }
+    //턴을 바꿔준다 그리고 scoreRound값을 초기화 시켜준다.
     public void turnChanger(){
         turn = !turn;
         scoreRound = 0;
