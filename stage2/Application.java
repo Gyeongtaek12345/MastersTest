@@ -106,12 +106,12 @@ public class Application {
                 temp[i][j]='x';
             }
         }
-        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
-            for (int j=0; j<row; j++){
-                System.out.print(cardField[i][j]+" ");
-            }
-            System.out.println();
-        }
+//        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
+//            for (int j=0; j<row; j++){
+//                System.out.print(cardField[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
         makeField(xField);
     }
     //유저에게 받은 2개의 좌표의 값을 서로 비교하고 두값이 같을 경우 두카드를 제거하는 Remove()를 실행한다 그러나 두값이 다를경우 원래 상태로 돌아간다.
@@ -154,6 +154,15 @@ public class Application {
             turnChanger();
         }
     }
+    //코드에 반복되는 코드를 줄이기위에 2D array를 콘솔에 적어주는 메서드
+    public void makeField(char[][] field){
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                System.out.print("["+field[i][j]+"]");
+            }
+            System.out.println();
+        }
+    }
     //좌표 값에 있는 array 값들을 제거하고 필드에 재출력한다.
     public void remove(){
         xField[y][x] = ' ';
@@ -190,15 +199,6 @@ public class Application {
             }
         }
         return numX;
-    }
-    //코드에 반복되는 코드를 줄이기위에 2D array를 콘솔에 적어주는 메서드
-    public void makeField(char[][] field){
-        for (int i=0; i<col; i++){
-            for (int j=0; j<row; j++){
-                System.out.print("["+field[i][j]+"]");
-            }
-            System.out.println();
-        }
     }
     //누구의 턴인지 체크후에 점수를 추가 부여한다. 계속해서 카드를 맞출경우 부여되는 점수가 2배가된다
     public void scoreCalculate(){
