@@ -27,8 +27,7 @@ public class CardMatchingGame {
                     game.startGame();
                     System.out.println("________________________________________________________________________");
                     game.reveal();
-                    System.out.println("________________________________________________________________________");
-                    eCheck = false;
+                    break;
                 }catch (Exception e){
                     System.out.println("알맞은 좌표를 입력해주세요! (범위 0,0 ~ 2,5)");
                 }
@@ -38,8 +37,6 @@ public class CardMatchingGame {
         }
         System.out.println("축하드립니다 게임을 클리어 했습니다!!!");
         System.out.println("시도 횟수: "+game.numTry+" 남은 카드 수: "+game.numX);
-
-
 
     }
     //게임이 진행됨에있어 필요한 메세지의 출력과 게임에 사용될 2개의 좌표를 유저에게서 받아온다.
@@ -84,12 +81,12 @@ public class CardMatchingGame {
                 temp[i][j]='x';
             }
         }
-//        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
-//            for (int j=0; j<row; j++){
-//                System.out.print(cardField[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
+        for (int i=0; i<col; i++){                      //테스트 섞인 카드들을 출력
+            for (int j=0; j<row; j++){
+                System.out.print(cardField[i][j]+" ");
+            }
+            System.out.println();
+        }
         for (int i=0; i<col; i++){
             for (int j=0; j<row; j++){
                 System.out.print(xField[i][j]+" ");
