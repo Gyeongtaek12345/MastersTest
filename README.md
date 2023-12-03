@@ -40,48 +40,48 @@
 - 카드 덱에는 1부터 8까지의 카드가 3세트 들어가있다 그러므로 array를 이용하여 미리 준비된 덱을 만들어준다.
 
 
-    public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
+        public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
 
 - 덱을 섞어주기 위해 array를 list로 변환 후 Collection 의 shuffle 함수를 이용해준다.
 
 
-    public void shuffle(){
-        List<Integer> deckList = Arrays.asList(cardDeck);
-        Collections.shuffle(deckList);
-        deckList.toArray(cardDeck);
-    }
+        public void shuffle(){
+            List<Integer> deckList = Arrays.asList(cardDeck);
+            Collections.shuffle(deckList);
+            deckList.toArray(cardDeck);
+        }
 
 - 섞어준 덱의 카드들을 2D array (cardField) 안에 3행 6열로 배치한다.
 
 
-    int count = 0;
-    for (int i=0; i<col; i++){
-        for (int j=0; j<row; j++){
-            cardField[i][j]=cardDeck[count];
-            count++;
+        int count = 0;
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                cardField[i][j]=cardDeck[count];
+                count++;
+            }
         }
-    }
 
 ### 플레이
 1. *(초기 시작)* 뒤집힌 카드를 표시하는 x를 x가 들어있는 2D array (xField) 를 for 루프를 이용하여 3행 6열로 콘솔에 프린트한다.
 
 
-    for (int i=0; i<col; i++){
-        for (int j=0; j<row; j++){
-            System.out.print(xField[i][j]+" ");
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                System.out.print(xField[i][j]+" ");
+            }
+            System.out.println();
         }
-        System.out.println();
-    }
 
 2. *(입력 메뉴)* 변수 numTry 와 변수 numX 를 이용하여 시도 횟수와 남은 카드의 수를 가져오고 Scanner를 이용해서 유저한테서 좌표(y,x)을 받아서 splite을 이용해 나눠준다.
 
 
-    System.out.print("좌표1: ");
-    Scanner coordinate = new Scanner(System.in);
-    String coordString = coordinate.nextLine();
-    String[] data = coordString.split(",");
-    y=Integer.parseInt(data[0]);
-    x=Integer.parseInt(data[1]);
+        System.out.print("좌표1: ");
+        Scanner coordinate = new Scanner(System.in);
+        String coordString = coordinate.nextLine();
+        String[] data = coordString.split(",");
+        y=Integer.parseInt(data[0]);
+        x=Integer.parseInt(data[1]);
 
 ## 2단계
     
