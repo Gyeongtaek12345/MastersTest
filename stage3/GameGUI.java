@@ -135,6 +135,7 @@ public class GameGUI implements ActionListener {
             secondButton = null;
         }else if(cardAnswer[y][x] != cardAnswer[y2][x2]){
             //턴을 종료한다 (상대턴 시작)
+            turnChanger();
         }
         //ui 업데이트
     }
@@ -161,6 +162,11 @@ public class GameGUI implements ActionListener {
             }
         }
         scoreRound++;
+    }
+    //상대턴으로 바꿔준다.
+    public void turnChanger(){
+        turn = !turn;
+        scoreRound = 0;
     }
 }
 
