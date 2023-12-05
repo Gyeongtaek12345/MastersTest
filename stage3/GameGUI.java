@@ -50,6 +50,7 @@ public class GameGUI implements ActionListener {
         addLayout();
         shuffle();
         setCardAnswer();
+        cardBegin();
     }
     //ui 레이아웃과 초기 화면을 구성한다
     public void addLayout(){
@@ -82,6 +83,15 @@ public class GameGUI implements ActionListener {
         f.setLocationRelativeTo(null);
         f.setVisible(false);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    //처음 보여지는 화면 for루프를 이용해서 버튼에 카드 뒷면 이미지를 넣어준다.
+    public void cardBegin(){
+        for(int i=0 ; i<col;i++) {
+            for(int j=0;j<row;j++) {
+                btn[i][j].setIcon(new ImageIcon ("./image/back.png"));
+            }
+
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) {
