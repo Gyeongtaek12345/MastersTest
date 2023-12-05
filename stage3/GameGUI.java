@@ -96,6 +96,30 @@ public class GameGUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //버튼 클릭시 실행
+        JButton b = (JButton)e.getSource();
+        for(int i=0 ; i<col;i++) {
+            for(int j=0;j<row;j++) {
+                if(b == btn[i][j]) {
+                    if(firstButton != null && secondButton != null){
+                        firstButton.setIcon(new ImageIcon("./image/back.png"));
+                        secondButton.setIcon(new ImageIcon("./image/back.png"));
+                        firstButton = null;
+                        secondButton = null;
+                    } else if(firstButton == null && secondButton == null) {
+                        firstButton = b;
+                        y = i;
+                        x = j;
+                        firstButton.setIcon(new ImageIcon("./image/0" + cardAnswer[y][x] + ".png"));
+
+                    }else if(firstButton != null && firstButton!=b){
+                        secondButton = b;
+                        y2 = i;
+                        x2 = j;
+                        secondButton.setIcon(new ImageIcon("./image/0" + cardAnswer[y2][x2] + ".png"));
+                    }
+                }
+            }
+        }
     }
 }
 
