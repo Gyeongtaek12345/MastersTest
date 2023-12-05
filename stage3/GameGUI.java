@@ -138,6 +138,7 @@ public class GameGUI implements ActionListener {
             turnChanger();
         }
         //ui 업데이트
+        labelChange();
     }
     //단계1,2에서 가져온 누구의 턴인지 체크후 그플레이어에게 점수를 부여하는 메서드
     public void scoreCalculate() {
@@ -167,6 +168,15 @@ public class GameGUI implements ActionListener {
     public void turnChanger(){
         turn = !turn;
         scoreRound = 0;
+    }
+    //턴이 지남에 따라 레이블을 업데이트 해준다.
+    public void labelChange(){
+        if (!turn){
+            nameL.setText(name1 + "의 턴 점수: " + player1Score);
+        }else{
+            nameL.setText(name2 + "의 턴 점수: " + player2Score);
+        }
+        scoreL.setText(("점수표: "+name1+": "+player1Score+" "+name2+": "+player2Score));
     }
 }
 
