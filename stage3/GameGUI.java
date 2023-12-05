@@ -97,6 +97,7 @@ public class GameGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //버튼 클릭시 실행
         JButton b = (JButton)e.getSource();
+        winnerMessage();
         for(int i=0 ; i<col;i++) {
             for(int j=0;j<row;j++) {
                 if(b == btn[i][j]) {
@@ -192,6 +193,18 @@ public class GameGUI implements ActionListener {
         }
         return count[1] < 2 && count[2] < 2 && count[3] < 2 && count[4] < 2 && count[5] < 2 && count[6] < 2 && count[7] < 2 && count[8] < 2;
     }
-    
+    //게임이 끝난후에 메세지출력 (승리자 및 두 플레이어의 점수)
+    public void winnerMessage()
+    {
+        if (winCondition()){
+            if (player1Score > player2Score){
+                JOptionPane.showMessageDialog(null,name1+"님이 승리했습니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }else if(player2Score > player1Score){
+                JOptionPane.showMessageDialog(null,name2+"님이 승리했습니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }else {
+                JOptionPane.showMessageDialog(null,"무승부입니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }
+        }
+    }
 }
 
