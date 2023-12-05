@@ -253,5 +253,17 @@
         }
         System.out.println(player1Name + " 시도 횟수: "+ numTry + " 점수: " + player1Score);
         System.out.println(player2Name + " 시도 횟수: "+ numTry2 + " 점수: " + player2Score);
-## 3단계
 
+## #️⃣[3단계] GUI로 구현하기#️⃣
+### 💡요구사항💡
+#### 기능
+- 각 언어에서 제공하는 GUI 도구를 활용하여 게임을 GUI로 구현한다.
+- 카드를 숫자 대신 적절한 이미지로 대처한다.
+### 🏃동작 예시🏃
+게임 실행 시 메인 화면
+
+<img src = "./img/main.png">
+
+두 플레이어의 이름을 입력후 Start Game 버튼을 누른후 게임 화면
+
+<img src = "./img/game1.png"/>
