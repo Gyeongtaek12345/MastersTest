@@ -116,10 +116,26 @@ public class GameGUI implements ActionListener {
                         y2 = i;
                         x2 = j;
                         secondButton.setIcon(new ImageIcon("./image/0" + cardAnswer[y2][x2] + ".png"));
+                        getPoint();
                     }
                 }
             }
         }
+    }
+    //점수로 확인되는 조건을 cardAnswer의 좌표를 비교하여 체크한다.
+    public void getPoint(){
+        if (cardAnswer[y][x] == cardAnswer[y2][x2]){
+            //점수를 부여
+            firstButton.setEnabled(false);
+            secondButton.setEnabled(false);
+            cardAnswer[y][x] = ' ';
+            cardAnswer[y2][x2] = ' ';
+            firstButton = null;
+            secondButton = null;
+        }else if(cardAnswer[y][x] != cardAnswer[y2][x2]){
+            //턴을 종료한다 (상대턴 시작)
+        }
+        //ui 업데이트
     }
 }
 
