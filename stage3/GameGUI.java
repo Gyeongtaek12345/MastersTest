@@ -19,8 +19,7 @@ public class GameGUI implements ActionListener {
     String name1,name2;
     JLabel nameL,scoreL;
     boolean turn;
-    public static void main(String[] args) {
-    }
+
     //단계 1,2와 똑같은 방법으로 카드를 섞어 cardDeck array에 넣어준다.
     public void shuffle(){
         List<Integer> deckList = Arrays.asList(cardDeck);
