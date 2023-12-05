@@ -126,6 +126,7 @@ public class GameGUI implements ActionListener {
     public void getPoint(){
         if (cardAnswer[y][x] == cardAnswer[y2][x2]){
             //점수를 부여
+            scoreCalculate();
             firstButton.setEnabled(false);
             secondButton.setEnabled(false);
             cardAnswer[y][x] = ' ';
@@ -136,6 +137,30 @@ public class GameGUI implements ActionListener {
             //턴을 종료한다 (상대턴 시작)
         }
         //ui 업데이트
+    }
+    //단계1,2에서 가져온 누구의 턴인지 체크후 그플레이어에게 점수를 부여하는 메서드
+    public void scoreCalculate() {
+        int score = 10;
+        if (!turn) {
+            if (scoreRound >= 1) {
+                for (int i = 0; i < scoreRound; i++) {
+                    score = score * 2;
+                }
+                player1Score += score;
+            } else {
+                player1Score += 10;
+            }
+        } else {
+            if (scoreRound >= 1) {
+                for (int i = 0; i < scoreRound; i++) {
+                    score = score * 2;
+                }
+                player2Score += score;
+            } else {
+                player2Score += 10;
+            }
+        }
+        scoreRound++;
     }
 }
 
