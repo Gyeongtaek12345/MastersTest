@@ -267,3 +267,211 @@
 두 플레이어의 이름을 입력후 Start Game 버튼을 누른후 게임 화면
 
 <img src = "./img/game1.png"/>
+
+플레이어가 고른 두 카드가 같지 않은 경우
+
+<img src = "./img/game2.png"/>
+
+플레이어가 고른 두 카드가 같은 경우
+
+<img src = "./img/game4.png"/>
+
+필드위의 같은 카드를 모두 찾아서 게임 종료
+
+<img src = "./img/game5.png"/>
+
+### 🔎단계별 풀이 및 코드 설명🔎
+#### (메인 메뉴 UI 설정) 간단한 UI 코드작성
+
+1. 프레임 제목, 크기, 위치 지정
+
+
+        setTitle("CardMatchingGame");
+        setSize(400,400);
+        setLocationRelativeTo(null);
+
+2. 3개의 패널을 생성
+
+
+        JPanel panel1=new JPanel();
+        JPanel panel2=new JPanel(new GridLayout(2,2,10,10));
+        JPanel panel3=new JPanel();
+        
+3. 각각의 패널에 JLabel,JTextField,JButton을 추가
+        
+
+        panel1.add(titileLabel);
+        panel2.add(name1Label);
+        panel2.add(name1TextField);
+        panel3.add(startButton);
+
+4. JFrame에 3개의 패널을 추가
+        
+
+        this.add(panel1,BorderLayout.NORTH);
+        this.add(panel2,BorderLayout.CENTER);
+        this.add(panel3,BorderLayout.SOUTH);
+
+5. 화면 출력 및 종료
+
+
+        close 버튼을 누를시 프로그램 종료
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        화면에 보이게 바꿔준다
+        setVisible(true);
+
+
+6. 버튼을 누르면 플레이어가 입력한 이름을 게임화면으로 받아온다.
+
+
+        버튼에 액션 리스너 추가
+        startBtn.addActionListener(this);
+
+        버튼을 누를시 이름들을 JTextField로 부터 받아오고 게임화면을 실행한다 그리고 메인 화면을 종료한다.
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            name1 = name1TF.getText();
+            name2 = name2TF.getText();
+            new GameGUI(name1,name2).f.setVisible(true);
+            this.dispose();
+        }
+
+#### (게임 화면의 구성) 카드들이 저장되어 있는 버튼들과 다른 UI들의 출력
+
+1. 게임에 필요한 버튼을 보여주는 panel1과 레이블을 출력하는 panel2 생성
+
+
+        JButton[][] btn = new JButton[col][row];
+        
+        버튼 array에 버튼들을 넣어준다.
+        for(int i = 0; i<col;i++) {
+            for(int j = 0;j<row;j++) {
+                btn[i][j] = new JButton();
+            }
+        }
+        
+        만들어진 버튼들을 패널 안에 넣어준다.
+        for(int i = 0;i<col;i++) {
+            for (int j = 0 ;j<row;j++) {
+                panel1.add(btn[i][j]);
+                btn[i][j].addActionListener(this);
+            }
+        }
+        
+        패널2에는 플레이어에게 필요한 정보를 나타내는 JLabel을 넣어준다.
+        nameL = new JLabel(name1 + "의 턴 점수: " + player1Score);
+        scoreL = new JLabel("점수표 "+name1+": "+player1Score+" "+name2+": "+player2Score);
+        panel2.add(nameL);
+        panel2.add(scoreL);
+
+2. 뒤집힌 카드 이미지들을 버튼들안에 넣어준다.
+
+
+        for(int i=0 ; i<col;i++) {
+            for(int j=0;j<row;j++) {
+                btn[i][j].setIcon(new ImageIcon ("./image/back.png"));
+            }
+
+        }
+
+#### (게임 플레이 로직) 게임 플레이간의 사용되는 코드
+
+1. 초기 카드 설정 (카드를 섞고 섞인 값을 array에 저장)
+
+
+        1,2 단계와 마찬가지로 array를 list로 바꿔서 섞어준다.
+        List<Integer> deckList = Arrays.asList(cardDeck);
+        Collections.shuffle(deckList);
+        deckList.toArray(cardDeck);
+
+        섞인 카드들을 cardAnswer안에 순서대로 넣어준다.
+        int count = 0;
+        for (int i=0; i<col; i++){
+            for (int j=0; j<row; j++){
+                cardAnswer[i][j]=cardDeck[count];
+                count++;
+            }
+        }
+
+2.  버튼 액션 이벤트 추가 (카드 클릭시 그카드의 좌표에 있는 카드를 공개)
+
+
+        JButton b = (JButton)e.getSource();
+        winnerMessage();                                                                 //게임이 끝날 경우 메세지 출력
+        for(int i=0 ; i<col;i++) {
+            for(int j=0;j<row;j++) {
+                if(b == btn[i][j]) {
+                    if(firstButton != null && secondButton != null){                     //두카드가 다를경우 카드 뒤집기
+                        firstButton.setIcon(new ImageIcon("./image/back.png"));
+                        secondButton.setIcon(new ImageIcon("./image/back.png"));
+                        firstButton = null;
+                        secondButton = null;
+                    } else if(firstButton == null && secondButton == null) {             //첫번째 카드를 공개
+                        firstButton = b;
+                        y = i;
+                        x = j;
+                        firstButton.setIcon(new ImageIcon("./image/0" + cardAnswer[y][x] + ".png"));
+
+                    }else if(firstButton != null && firstButton!=b){                     //두번째 카드를 공개
+                        secondButton = b;
+                        y2 = i;
+                        x2 = j;
+                        secondButton.setIcon(new ImageIcon("./image/0" + cardAnswer[y2][x2] + ".png"));
+                        getPoint();                                                      //두카드가 같을 경우 점수를 얻음
+                    }
+                }
+            }
+        }
+
+3. 점수 계산 (1,2 단계와 마찬가지로 첫번째 맞추면 10점을 계속해서 맞출경우 두배의 점수를 부여)
+
+
+        getPoint 메서드 첫번째 카드와 두번째 카드의 좌표값을 가져와서 cardAnswer array에 대입해보고
+        값이 같을 경우 점수를 부여한다.
+        if (cardAnswer[y][x] == cardAnswer[y2][x2]){
+            //점수를 부여
+            scoreCalculate();
+            firstButton.setEnabled(false);
+            secondButton.setEnabled(false);
+            cardAnswer[y][x] = ' ';
+            cardAnswer[y2][x2] = ' ';
+            firstButton = null;
+            secondButton = null;
+        }else if(cardAnswer[y][x] != cardAnswer[y2][x2]){
+            //턴을 종료한다 (상대턴 시작)
+            turnChanger();
+        }
+        //ui 업데이트
+        labelChange();
+
+        2 단계에서 가져온 누구의 턴인지 체크후 그플레이어에게 점수를 부여하는 메서드를 사용한다.
+        public void scoreCalculate()
+
+4. UI 업데이트 (턴이 지남에 따라 JLabel을 업데이트 해준다.)
+
+
+        labelChange메서드 턴을 확인 후 그에대한 label수정
+        if (!turn){
+            nameL.setText(name1 + "의 턴 점수: " + player1Score);
+        }else{
+            nameL.setText(name2 + "의 턴 점수: " + player2Score);
+        }
+        scoreL.setText(("점수표: "+name1+": "+player1Score+" "+name2+": "+player2Score));
+
+5. 승리조건과 메세지 출력 (카드를 선택 할때마다 승리조건을 체크하고 게임이 끝날경우 그에맞는 메세지를 보여준다.)
+
+
+        2 단계에서 가져온 cardAnswer에서 같은 카드가 남지 않은 경우 참값을 반환하는 메서드를 사용한다.
+        public boolean winCondition()
+
+        만약 winCondition()이 참 값을 반환하면 플레이어간의 점수를 비교하고 그에 맞는 메세지를 츨력한다.
+        if (winCondition()){
+            if (player1Score > player2Score){
+                JOptionPane.showMessageDialog(null,name1+"님이 승리했습니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }else if(player2Score > player1Score){
+                JOptionPane.showMessageDialog(null,name2+"님이 승리했습니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }else {
+                JOptionPane.showMessageDialog(null,"무승부입니다.\n"+name1+"의 점수: "+player1Score+"\n"+name2+"의 점수: "+player2Score);
+            }
+        }
