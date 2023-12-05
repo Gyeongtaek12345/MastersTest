@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class Application {
+public class TwoPlayerCardGame {
     public Integer[] cardDeck = {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8};
     int row = 6,col = 3;
     int[][] cardField = new int[col][row];
@@ -15,7 +15,7 @@ public class Application {
     String player1Name, player2Name;
     boolean turn;
     public static void main(String[] args) {
-        Application game = new Application();          //card game에 대한 인스턴스
+        TwoPlayerCardGame game = new TwoPlayerCardGame();          //card game에 대한 인스턴스
         System.out.println("!!!카드 맞추기 게임!!!");
         System.out.println("________________________________________________________________________");
         game.setUp();
