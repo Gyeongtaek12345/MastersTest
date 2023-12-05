@@ -178,5 +178,20 @@ public class GameGUI implements ActionListener {
         }
         scoreL.setText(("점수표: "+name1+": "+player1Score+" "+name2+": "+player2Score));
     }
+    //남은 카드중 똑같은 카드가 없을 경우 참값을 반환
+    public boolean winCondition(){
+        int[]count = new int[9];
+        for (int z=1; z<=8; z++) {
+            for (int i=0; i<col; i++){
+                for (int j=0; j<row; j++){
+                    if (cardAnswer[i][j]==z){
+                        count[z]++;
+                    }
+                }
+            }
+        }
+        return count[1] < 2 && count[2] < 2 && count[3] < 2 && count[4] < 2 && count[5] < 2 && count[6] < 2 && count[7] < 2 && count[8] < 2;
+    }
+    
 }
 
